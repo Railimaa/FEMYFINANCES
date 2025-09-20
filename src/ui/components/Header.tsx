@@ -93,7 +93,7 @@ export function Header() {
   const { theme, toogleTheme } = useTheme();
 
   return (
-    <div className="flex w-full h-full max-h-16 fixed top-0 left-0 px-4 lg:px-20 z-[1000] bg-background shadow-sm py-2">
+    <div className="flex w-full h-full max-h-14 fixed top-0 left-0 px-4 z-[1000] bg-background shadow-sm py-2">
       <Logo />
 
       <div className="flex justify-end  w-full">

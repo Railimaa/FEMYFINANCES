@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-expressions */
-import { CircleX } from 'lucide-react';
 import { ComponentProps, forwardRef, useReducer } from 'react';
 
 import { cn } from '@app/utils/cn';
 import { Eyes } from '@ui/assets/icons/Eyes';
 
 import { Button } from './Button';
+import { FieldError } from './FieldError';
 
 interface IInputProps extends ComponentProps<'input'> {
   isLoading?: boolean;
@@ -47,12 +47,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
           </Button>
         )}
 
-        {error && (
-          <div className="flex items-center gap-1 text-sm text-destructive">
-            <small>{error}</small>
-            <CircleX size={14} />
-          </div>
-        )}
+        {error && <FieldError message={error} />}
       </div>
     );
   },

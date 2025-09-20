@@ -14,11 +14,11 @@ import { useModal } from './useModal';
 interface IModalProps {
   open: boolean;
   handleCloseModal: () => void;
-  title?: string;
+  title?: string | ReactNode;
   children: ReactNode;
   canButtonClose?: boolean;
   loading?: boolean;
-  maxWidith?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   contentFull?: {
     contentFull: boolean;
     withPadding?: boolean;
@@ -32,7 +32,7 @@ export function Modal({
   children,
   canButtonClose = true,
   loading = false,
-  maxWidith = 'sm',
+  maxWidth = 'sm',
   contentFull = { contentFull: false, withPadding: false },
 }: IModalProps) {
   const { handleStopPropagation } = useModal({
@@ -46,20 +46,20 @@ export function Modal({
   const ModalContent = (
     <div
       onClick={loading ? () => {} : handleCloseModal}
-      className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-foreground/30  z-[1002] animate-overlay-in-modal"
+      className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-foreground/50  z-[1002] animate-overlay-in-modal "
     >
       <div
         onClick={(event) => handleStopPropagation(event)}
         className={cn(
-          'fixed bg-background border shadow-md z-[1003] p-4 rounded-md animate-scale-in-modal',
+          'fixed bg-background border shadow-md z-[1003] p-6 rounded-md animate-scale-in-modal w-full',
           contentFull.contentFull && contentFull.withPadding
             ? 'inset-0 m-2'
             : contentFull.contentFull && !contentFull.withPadding && 'inset-0',
-          !contentFull.contentFull && maxWidith === 'xs' && 'max-w-[300px]',
-          !contentFull.contentFull && maxWidith === 'sm' && 'max-w-[400px]',
-          !contentFull.contentFull && maxWidith === 'md' && 'max-w-[600px]',
-          !contentFull.contentFull && maxWidith === 'lg' && 'max-w-[800px]',
-          !contentFull.contentFull && maxWidith === 'xl' && 'max-w-[1000px]',
+          !contentFull.contentFull && maxWidth === 'xs' && 'max-w-[300px]',
+          !contentFull.contentFull && maxWidth === 'sm' && 'max-w-[400px]',
+          !contentFull.contentFull && maxWidth === 'md' && 'max-w-[600px]',
+          !contentFull.contentFull && maxWidth === 'lg' && 'max-w-[800px]',
+          !contentFull.contentFull && maxWidth === 'xl' && 'max-w-[1000px]',
         )}
       >
         <div
@@ -75,7 +75,7 @@ export function Modal({
                 size="sm"
                 variant="ghost"
                 className="hover:bg-transparent focus:bg-transparent"
-                onClick={handleCloseModal}
+                onClick={loading ? () => {} : handleCloseModal}
               >
                 <div className="text-foreground/70 hover:text-foreground hover:stroke-[2.5] transition-all ease-in-out">
                   <X />
@@ -84,7 +84,7 @@ export function Modal({
             )}
           </header>
 
-          <div className="mt-4">{children}</div>
+          <div className="mt-6">{children}</div>
         </div>
       </div>
     </div>
