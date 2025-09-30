@@ -38,9 +38,18 @@ async function putBankAccounts(
   return data;
 }
 
+async function deleteBankAccount(bankAccountId: string): Promise<void> {
+  const { data } = await httpClient.delete(
+    `/bank-account/delete/${bankAccountId}`,
+  );
+
+  return data;
+}
+
 export const BankAccountsService = {
   getBankAccounts,
   getBankAccountsCategories,
   postBankAccounts,
   putBankAccounts,
+  deleteBankAccount,
 };

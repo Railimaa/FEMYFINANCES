@@ -7,7 +7,7 @@ interface IAlertModalProps {
   open: boolean;
   handleClose: () => void;
   handleConfirmation: () => void;
-  title: string;
+  title: string | ReactNode;
   message: string | ReactNode;
   configButtons?: {
     cancelButtonTitle: string;

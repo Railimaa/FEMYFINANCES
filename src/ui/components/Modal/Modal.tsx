@@ -23,6 +23,7 @@ interface IModalProps {
     contentFull: boolean;
     withPadding?: boolean;
   };
+  rightAction?: ReactNode;
 }
 
 export function Modal({
@@ -34,6 +35,7 @@ export function Modal({
   loading = false,
   maxWidth = 'sm',
   contentFull = { contentFull: false, withPadding: false },
+  rightAction,
 }: IModalProps) {
   const { handleStopPropagation } = useModal({
     open,
@@ -69,18 +71,48 @@ export function Modal({
           )}
         >
           <header className="flex justify-between items-center w-full">
-            <h2 className="text-base font-semibold tracking-tight">{title}</h2>
-            {canButtonClose && (
-              <Button
-                size="sm"
-                variant="ghost"
-                className="hover:bg-transparent focus:bg-transparent"
-                onClick={loading ? () => {} : handleCloseModal}
-              >
-                <div className="text-foreground/70 hover:text-foreground hover:stroke-[2.5] transition-all ease-in-out">
-                  <X />
+            {rightAction && (
+              <>
+                <h2 className="text-base font-semibold tracking-tight">
+                  {title}
+                </h2>
+
+                <div className="flex items-center">
+                  {rightAction}
+                  {canButtonClose && (
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="hover:bg-transparent focus:bg-transparent"
+                      onClick={loading ? () => {} : handleCloseModal}
+                    >
+                      <div className="text-foreground/70 hover:text-foreground hover:stroke-[2.5] transition-all ease-in-out">
+                        <X />
+                      </div>
+                    </Button>
+                  )}
                 </div>
-              </Button>
+              </>
+            )}
+
+            {!rightAction && (
+              <>
+                <h2 className="text-base font-semibold tracking-tight">
+                  {title}
+                </h2>
+                {canButtonClose && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="hover:bg-transparent focus:bg-transparent"
+                    onClick={loading ? () => {} : handleCloseModal}
+                  >
+                    <div className="text-foreground/70 hover:text-foreground hover:stroke-[2.5] transition-all ease-in-out">
+                      <X />
+                    </div>
+                  </Button>
+                )}
+              </>
             )}
           </header>
 

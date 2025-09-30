@@ -1,5 +1,8 @@
 /* eslint-disable consistent-return */
-import React, { useEffect } from 'react';
+
+import React, { useEffect, useId } from 'react';
+
+import { useModalProvider } from '@app/contexts/ModalProvider';
 
 interface IUseModalParams {
   open: boolean;
@@ -8,11 +11,24 @@ interface IUseModalParams {
 }
 
 export function useModal({ open, handleCloseModal, loading }: IUseModalParams) {
+  const { registerStack, isTopStack, unRegisterStack } = useModalProvider();
+  const idModal = useId();
+
+  useEffect(() => {
+    if (open) {
+      registerStack(idModal);
+    } else {
+      unRegisterStack(idModal);
+    }
+
+    return () => unRegisterStack(idModal);
+  }, [open, registerStack, idModal, unRegisterStack]);
+
   useEffect(() => {
     if (loading) return;
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && isTopStack(idModal)) {
         handleCloseModal();
       }
     }
@@ -22,7 +38,7 @@ export function useModal({ open, handleCloseModal, loading }: IUseModalParams) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleCloseModal, loading]);
+  }, [handleCloseModal, loading, isTopStack, idModal]);
 
   useEffect(() => {
     if (open) {

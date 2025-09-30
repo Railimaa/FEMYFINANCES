@@ -1,9 +1,14 @@
+import { Trash } from 'lucide-react';
 import { Controller } from 'react-hook-form';
 
+import { AlertModal } from '@ui/components/AlertModal';
 import { Button } from '@ui/components/Button';
 import { Input } from '@ui/components/Input';
 import { Label } from '@ui/components/Label';
 import { Modal } from '@ui/components/Modal/Modal';
+import { IconBank } from '@ui/icons/BankAccountsIcon/IconsBank/IconBank';
+import { IconsBankType } from '@ui/icons/BankAccountsIcon/IconsBank/IconsBankMap';
+import { ColorIcon } from '@ui/icons/ColorIcon';
 
 import { useEditBankAccountModal } from '../../BankAccounts/hooks/useEditBankAccountModal';
 import { AccountOrColorDropDown } from '../NewBankAccountModal/components/AccountOrColorDropDown';
@@ -19,6 +24,11 @@ export function EditBankAccountModal() {
     handleSubmit,
     isDurty,
     isLoadingUpdateBankAccount,
+    openModalDeleteBankAccount,
+    handleOpenModalDeleteBankAccount,
+    handleCloseModalDeleteBankAccount,
+    handleDeleteBankAccount,
+    isLoadingDeleteBankAccount,
   } = useEditBankAccountModal();
 
   return (
@@ -34,6 +44,17 @@ export function EditBankAccountModal() {
       }
       loading={isLoadingUpdateBankAccount}
       maxWidth="md"
+      rightAction={
+        <div>
+          <Button
+            size="icon"
+            variant="destructive"
+            onClick={handleOpenModalDeleteBankAccount}
+          >
+            <Trash />
+          </Button>
+        </div>
+      }
     >
       <Label htmlFor="initialBalance">Saldo Inicial</Label>
       <div className="flex gap-2 items-center">
@@ -104,6 +125,46 @@ export function EditBankAccountModal() {
           Salvar
         </Button>
       </div>
+
+      <AlertModal
+        open={openModalDeleteBankAccount}
+        handleClose={handleCloseModalDeleteBankAccount}
+        title={
+          <div className="flex  items-center justify-between ">
+            <p>Excluir Conta Bancária</p>
+
+            <div className="fixed top-[14px] right-3">
+              {bankAccountIsBegging?.categoryBankAccount.id && (
+                <div
+                  className="rounded-full size-10 p-1 flex justify-center items-center"
+                  style={{
+                    backgroundColor: `${bankAccountIsBegging.categoryBankAccount.color}`,
+                  }}
+                >
+                  <IconBank
+                    icon={
+                      bankAccountIsBegging.categoryBankAccount
+                        .icon as IconsBankType
+                    }
+                  />
+                </div>
+              )}
+
+              {!bankAccountIsBegging?.categoryBankAccount.id && (
+                <ColorIcon
+                  color={
+                    bankAccountIsBegging?.categoryBankAccount.colorWithoutIcon!
+                  }
+                  bg="#E8E8E8"
+                />
+              )}
+            </div>
+          </div>
+        }
+        message="Atenção! Todas as transações desta conta serão removidas automáticamente."
+        handleConfirmation={handleDeleteBankAccount}
+        loading={isLoadingDeleteBankAccount || isLoadingUpdateBankAccount}
+      />
     </Modal>
   );
 }
