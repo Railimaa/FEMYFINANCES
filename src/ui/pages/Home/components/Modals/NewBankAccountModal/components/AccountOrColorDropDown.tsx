@@ -61,6 +61,8 @@ export function AccountOrColorDropDown({
             isLoadingBankAccountsCategories && 'opacity-50',
             (hasError || error) && 'border-destructive',
           )}
+          role="button"
+          tabIndex={0}
         >
           <div className="w-full flex justify-end items-center">
             {isLoadingBankAccountsCategories && (

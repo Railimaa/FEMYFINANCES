@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -6,6 +7,7 @@ import { z } from 'zod';
 import { queryClient } from '@app/libs/queryClient';
 import { useFinancesContext } from '@ui/pages/Home/context/FinancesContext';
 
+import { useDeleteBankAccount } from './useDeleteBankAccount';
 import { usePutBankAccount } from './usePutBankAccount';
 
 export function useEditBankAccountModal() {
@@ -17,6 +19,14 @@ export function useEditBankAccountModal() {
 
   const { onUpdateBankAccount, isLoadingUpdateBankAccount } =
     usePutBankAccount();
+
+  const { onDeleteBankAccount, isLoadingDeleteBankAccount } =
+    useDeleteBankAccount();
+
+  const [openModalDeleteBankAccount, setOpenModalDeleteBankAccount] =
+    useState(false);
+
+  const QueryClient = queryClient;
 
   const schema = z.object({
     name: z.string().min(1, 'Nome é obrigatório'),
@@ -72,13 +82,33 @@ export function useEditBankAccountModal() {
         body: data,
         idBankAccount: bankAccountIsBegging?.id!,
       });
-      queryClient.invalidateQueries({ queryKey: ['bankAccounts', 'get'] });
+      QueryClient.invalidateQueries({ queryKey: ['bankAccounts', 'get'] });
       toast.success('Conta editada com sucesso!', { position: 'top-right' });
       handleCloseModalEditBankAccount();
     } catch {
       toast.error('Erro ao cadastrar conta!', { position: 'top-right' });
     }
   });
+
+  function handleOpenModalDeleteBankAccount() {
+    setOpenModalDeleteBankAccount(true);
+  }
+
+  function handleCloseModalDeleteBankAccount() {
+    setOpenModalDeleteBankAccount(false);
+  }
+
+  async function handleDeleteBankAccount() {
+    try {
+      await onDeleteBankAccount(bankAccountIsBegging?.id!);
+      QueryClient.invalidateQueries({ queryKey: ['bankAccounts', 'get'] });
+      toast.success('Conta deletada com sucesso!', { position: 'top-right' });
+      handleCloseModalDeleteBankAccount();
+      handleCloseModalEditBankAccount();
+    } catch {
+      toast.error('Erro ao deletar conta!', { position: 'top-right' });
+    }
+  }
 
   const isDurty = form.formState?.isDirty;
 
@@ -90,5 +120,10 @@ export function useEditBankAccountModal() {
     bankAccountIsBegging,
     isLoadingUpdateBankAccount,
     isDurty,
+    openModalDeleteBankAccount,
+    handleOpenModalDeleteBankAccount,
+    handleCloseModalDeleteBankAccount,
+    handleDeleteBankAccount,
+    isLoadingDeleteBankAccount,
   };
 }

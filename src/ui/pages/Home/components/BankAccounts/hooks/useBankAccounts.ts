@@ -3,7 +3,14 @@ import { useMemo, useState } from 'react';
 import { useGetBankAccounts } from './useGetBankAccounts';
 
 export function useBankAccounts() {
-  const { bankAccounts, isLoadingBankAccounts } = useGetBankAccounts();
+  const {
+    bankAccounts,
+    isLoadingBankAccounts,
+    isFetchingBankAccounts,
+    refetchBankAccounts,
+    isRefetchingBankAccounts,
+    isErrorBankAccounts,
+  } = useGetBankAccounts();
   const [isBegging, setIsBegging] = useState<Record<string, boolean>>({
     isBegging: true,
     isEnd: false,
@@ -36,5 +43,9 @@ export function useBankAccounts() {
     isBegging,
     bankAccounts,
     totalValueBankAccounts,
+    isFetchingBankAccounts,
+    refetchBankAccounts,
+    isRefetchingBankAccounts,
+    isErrorBankAccounts,
   };
 }
