@@ -23,15 +23,14 @@ export function Tabs({ tabs, defaultTab }: TabsProps) {
 
   return (
     <div className="flex flex-1 flex-col p-2 space-y-10">
-      <div className="flex flex-row items-center  gap-2">
+      <div className="flex flex-row items-center  gap-2 ">
         {tabs.map((tab, index) => (
           <div
             key={tab.id}
             className={cn(
-              'flex items-center  gap-2  p-2 rounded-lg  cursor-pointer',
-              currentTab === index && 'bg-foreground/20 font-bold',
-              currentTab !== index &&
-                'hover:bg-foreground/10 transition-all ease-in-out duration-300 ',
+              'flex items-center  gap-2  p-2 rounded-lg  cursor-pointer relative opacity-70',
+              currentTab === index &&
+                'after:content-[""] after:absolute after:left-0 after:bottom-[-9.5px] after:w-full after:border-b-2 after:border-foreground opacity-100 after:transition-all after:ease-in after:duration-200 ',
             )}
             onClick={() => handleChangeTab(index)}
           >
