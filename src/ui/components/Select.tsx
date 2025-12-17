@@ -193,6 +193,6 @@ export {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
-  // eslint-disable-next-line prettier/prettier
   SelectValue
 };
+
