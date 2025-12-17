@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@ui/components/DropdownMenu';
 import { FieldError } from '@ui/components/FieldError';
+import { Spinner } from '@ui/components/Spinner';
 import { Tabs } from '@ui/components/Tabs/Tabs';
 import { IconBank } from '@ui/icons/BankAccountsIcon/IconsBank/IconBank';
 import { IconsBankType } from '@ui/icons/BankAccountsIcon/IconsBank/IconsBankMap';
@@ -65,9 +66,7 @@ export function AccountOrColorDropDown({
           tabIndex={0}
         >
           <div className="w-full flex justify-end items-center">
-            {isLoadingBankAccountsCategories && (
-              <div className="size-5  border-[3px] border-l-[3px] rounded-full border-l-foreground  animate-spin" />
-            )}
+            {isLoadingBankAccountsCategories && <Spinner />}
 
             {!isLoadingBankAccountsCategories && (
               <>

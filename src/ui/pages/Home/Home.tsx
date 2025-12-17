@@ -3,7 +3,9 @@ import { Header } from '@ui/components/Header';
 import { BankAccounts } from './components/BankAccounts/BankAccounts';
 import { Fab } from './components/Fab/Fab';
 import { EditBankAccountModal } from './components/Modals/EditBankAccountModal/EditBankAccountModal';
+import { EditTransactionModal } from './components/Modals/EditTransactionModal/EditTransactionModal';
 import { NewBankAccountModal } from './components/Modals/NewBankAccountModal/NewBankAccountModal';
+import { NewTransactionModal } from './components/Modals/NewTransactionModal/NewTransactionModal';
 import { Transactions } from './components/Transactions/Transactions';
 import {
   FinancesContext,
@@ -14,7 +16,7 @@ export function Home() {
   return (
     <FinancesContextProvider>
       <FinancesContext.Consumer>
-        {({ bankAccountIsBegging }) => (
+        {({ bankAccountIsBegging, transactionIsBegging }) => (
           <>
             <div className="flex flex-col h-screen ">
               <Header />
@@ -31,6 +33,8 @@ export function Home() {
             </div>
             <NewBankAccountModal />
             {bankAccountIsBegging && <EditBankAccountModal />}
+            <NewTransactionModal />
+            {transactionIsBegging && <EditTransactionModal />}
           </>
         )}
       </FinancesContext.Consumer>

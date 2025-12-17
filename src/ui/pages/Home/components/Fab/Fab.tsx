@@ -16,7 +16,8 @@ import {
 import { useFinancesContext } from '../../context/FinancesContext';
 
 export function Fab() {
-  const { handleOpenModalNewBankAccount } = useFinancesContext();
+  const { handleOpenModalNewBankAccount, handleOpenModalNewTransaction } =
+    useFinancesContext();
 
   return (
     <DropdownMenu>
@@ -31,7 +32,9 @@ export function Fab() {
           side="top"
           className="p-3 rounded-[16px] space-y-3"
         >
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => handleOpenModalNewTransaction('EXPENSE')}
+          >
             <div className="flex justify-center items-center gap-3">
               <BanknoteArrowDown />
               <p className="text-sm/6 tracking-wide font-normal ">
@@ -39,7 +42,9 @@ export function Fab() {
               </p>
             </div>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => handleOpenModalNewTransaction('INCOME')}
+          >
             <div className="flex justify-center items-center gap-3">
               <BanknoteArrowUp />
               <p className="text-sm/6 tracking-wide font-normal ">

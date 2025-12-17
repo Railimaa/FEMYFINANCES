@@ -1,16 +1,16 @@
 import { NumericFormat } from 'react-number-format';
 
-type InputInitialBalanceProps = {
+type InputCurrencyProps = {
   value: number;
   onChange: (value: number) => void;
   isLoading?: boolean;
 };
 
-export function InputInitialBalance({
+export function InputCurrency({
   value,
   onChange,
   isLoading,
-}: InputInitialBalanceProps) {
+}: InputCurrencyProps) {
   return (
     <NumericFormat
       value={value}

@@ -10,6 +10,14 @@ type Transaction = {
   date: Date;
   createdAt: Date;
   updatedAt: Date;
+  categoryBankAccount: {
+    id: string | null;
+    color: string | null;
+    icon: string | null;
+    colorWithoutIcon: string | null;
+    userId: string;
+    type: string;
+  };
 };
 
 export type TransactionResponse = {
