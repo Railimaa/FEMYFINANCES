@@ -15,6 +15,7 @@ export function useEditBankAccountModal() {
     openModalEditBankAccount,
     handleCloseModalEditBankAccount,
     bankAccountIsBegging,
+    handleChangeFilter,
   } = useFinancesContext();
 
   const { onUpdateBankAccount, isLoadingUpdateBankAccount } =
@@ -102,9 +103,13 @@ export function useEditBankAccountModal() {
     try {
       await onDeleteBankAccount(bankAccountIsBegging?.id!);
       QueryClient.invalidateQueries({ queryKey: ['bankAccounts', 'get'] });
+      QueryClient.invalidateQueries({
+        queryKey: ['get', 'transactions'],
+      });
       toast.success('Conta deletada com sucesso!', { position: 'top-right' });
       handleCloseModalDeleteBankAccount();
       handleCloseModalEditBankAccount();
+      handleChangeFilter('bankAccountId', undefined);
     } catch {
       toast.error('Erro ao deletar conta!', { position: 'top-right' });
     }

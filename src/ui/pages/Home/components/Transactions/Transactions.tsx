@@ -37,6 +37,7 @@ export function Transactions() {
     isErrorTransactions,
     isLoadingTransactions,
     refetchTransactions,
+    refSwiper,
   } = useTransactions();
 
   return (
@@ -84,6 +85,7 @@ export function Transactions() {
                     handleChangeSliderState('isEnd', swiper.isEnd);
                     handleChangeSliderState('activeIndex', swiper.activeIndex);
                     handleChangeFilter('month', swiper.realIndex);
+                    refSwiper.current = swiper;
                   }}
                   onSwiper={() => {}}
                 >

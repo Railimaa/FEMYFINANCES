@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useFilters } from './useFilters';
+import { useFinancesContext } from '@ui/pages/Home/context/FinancesContext';
+
 import { useGetTransactions } from './useGetTransactions';
 
 export function useTransactions() {
-  const { filters, handleChangeFilter } = useFilters();
+  const { refSwiper, filters, handleChangeFilter } = useFinancesContext();
 
   const {
     transactions,
@@ -90,5 +91,6 @@ export function useTransactions() {
     isErrorTransactions,
     isLoadingTransactions,
     refetchTransactions,
+    refSwiper,
   };
 }

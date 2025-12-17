@@ -4,6 +4,7 @@ import { Controller } from 'react-hook-form';
 import { AlertModal } from '@ui/components/AlertModal';
 import { Button } from '@ui/components/Button';
 import { Input } from '@ui/components/Input';
+import { InputCurrency } from '@ui/components/InputCurrency';
 import { Label } from '@ui/components/Label';
 import { Modal } from '@ui/components/Modal/Modal';
 import { IconBank } from '@ui/icons/BankAccountsIcon/IconsBank/IconBank';
@@ -12,7 +13,6 @@ import { ColorIcon } from '@ui/icons/ColorIcon';
 
 import { useEditBankAccountModal } from '../../BankAccounts/hooks/useEditBankAccountModal';
 import { AccountOrColorDropDown } from '../NewBankAccountModal/components/AccountOrColorDropDown';
-import { InputInitialBalance } from '../NewBankAccountModal/components/InputInitialBalance';
 import { SelectTypeBankAccount } from '../NewBankAccountModal/components/SelectTypeBankAccount';
 
 export function EditBankAccountModal() {
@@ -66,7 +66,7 @@ export function EditBankAccountModal() {
           control={form.control}
           name="initialBalance"
           render={({ field: { value, onChange } }) => (
-            <InputInitialBalance
+            <InputCurrency
               value={value}
               onChange={onChange}
               isLoading={isLoadingUpdateBankAccount}
@@ -81,6 +81,7 @@ export function EditBankAccountModal() {
           <Input
             placeholder="Nome"
             id="name"
+            maxLength={60}
             {...form.register('name')}
             error={form.formState.errors.name?.message}
             isLoading={isLoadingUpdateBankAccount}

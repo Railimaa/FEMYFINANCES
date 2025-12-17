@@ -2,13 +2,13 @@ import { Controller } from 'react-hook-form';
 
 import { Button } from '@ui/components/Button';
 import { Input } from '@ui/components/Input';
+import { InputCurrency } from '@ui/components/InputCurrency';
 import { Label } from '@ui/components/Label';
 import { Modal } from '@ui/components/Modal/Modal';
 
 import { useNewAccountModal } from '../../BankAccounts/hooks/useNewAccountModal';
 
 import { AccountOrColorDropDown } from './components/AccountOrColorDropDown';
-import { InputInitialBalance } from './components/InputInitialBalance';
 import { SelectTypeBankAccount } from './components/SelectTypeBankAccount';
 
 export function NewBankAccountModal() {
@@ -39,7 +39,7 @@ export function NewBankAccountModal() {
           control={form.control}
           name="initialBalance"
           render={({ field: { value, onChange } }) => (
-            <InputInitialBalance
+            <InputCurrency
               value={value}
               onChange={onChange}
               isLoading={isLoadingPostBankAccount}
@@ -54,6 +54,7 @@ export function NewBankAccountModal() {
           <Input
             placeholder="Nome"
             id="name"
+            maxLength={60}
             {...form.register('name')}
             error={form.formState.errors.name?.message}
             isLoading={isLoadingPostBankAccount}

@@ -83,6 +83,7 @@ export function ModalFilter({
                     <ColorIcon
                       color={bankAccount.categoryBankAccount.colorWithoutIcon!}
                       bg="#E8E8E8"
+                      size="32"
                     />
                   )}
                 </div>
