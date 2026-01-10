@@ -84,6 +84,9 @@ export function useEditBankAccountModal() {
         idBankAccount: bankAccountIsBegging?.id!,
       });
       QueryClient.invalidateQueries({ queryKey: ['bankAccounts', 'get'] });
+      QueryClient.invalidateQueries({
+        queryKey: ['get', 'transactions'],
+      });
       toast.success('Conta editada com sucesso!', { position: 'top-right' });
       handleCloseModalEditBankAccount();
     } catch {

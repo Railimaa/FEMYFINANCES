@@ -46,6 +46,7 @@ export function ColorTab({ selectedValue, handleChange }: ColorTabProps) {
               color: null,
               icon: null,
               colorWithoutIcon: color,
+              category: null,
             })
           }
           className={cn(

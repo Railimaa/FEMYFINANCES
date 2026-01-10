@@ -3,6 +3,7 @@ export type BankAccountCategories = {
     icon: string;
     color: string;
     id: string;
+    category: string;
   }[];
   type: string;
 };

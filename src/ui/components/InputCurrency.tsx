@@ -16,10 +16,11 @@ export function InputCurrency({
       value={value}
       thousandSeparator="."
       decimalSeparator=","
-      allowNegative
-      defaultValue={0}
-      onValueChange={(value) => {
-        onChange(value.floatValue ?? 0);
+      decimalScale={0}
+      allowNegative={false}
+      inputMode="numeric"
+      onValueChange={(values) => {
+        onChange(values.floatValue ?? 0);
       }}
       className=" outline-none border-none font-bold text-[32px] -tracking-[-1px]  bg-background text-primary w-full"
       id="initialBalance"

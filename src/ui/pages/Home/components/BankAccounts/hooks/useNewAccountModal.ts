@@ -27,6 +27,7 @@ export function useNewAccountModal() {
         color: z.string().min(1).nullable(),
         icon: z.string().min(1).nullable(),
         colorWithoutIcon: z.string().min(1).nullable(),
+        category: z.string().nullable(),
       })
       .refine(
         (data) => {

@@ -33,6 +33,7 @@ export function useAccountOrColorDropdown({
     color: value.color ?? null,
     colorWithoutIcon: value.colorWithoutIcon ?? null,
     icon: value.icon ?? null,
+    category: value.category ?? null,
   });
 
   const isTabIcon = !!selecteValue?.id;
@@ -43,6 +44,7 @@ export function useAccountOrColorDropdown({
       color: categoryWithIcon.color,
       icon: categoryWithIcon.icon,
       colorWithoutIcon: categoryWithIcon.colorWithoutIcon,
+      category: categoryWithIcon.category,
     };
 
     setSelectValue(value);
@@ -62,6 +64,7 @@ export function useAccountOrColorDropdown({
         color: findValue.color,
         icon: findValue.icon,
         colorWithoutIcon: null,
+        category: findValue.category,
       });
     }
   }, [bankAccountsCategories, value.id]);

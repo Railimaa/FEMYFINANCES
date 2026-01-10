@@ -7,9 +7,9 @@ type Transaction = {
   name: string;
   value: number;
   typeTransaction: 'INCOME' | 'EXPENSE';
-  date: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  date: string;
+  createdAt: string;
+  updatedAt: string;
   categoryBankAccount: {
     id: string | null;
     color: string | null;

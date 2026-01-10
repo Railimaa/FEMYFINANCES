@@ -64,8 +64,6 @@ export function DropDownAccount({
     });
   }
 
-  console.log(selectedValue, 'selectValue');
-
   return (
     <div>
       <DropdownMenu>

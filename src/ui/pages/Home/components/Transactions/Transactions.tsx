@@ -6,10 +6,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Button } from '@ui/components/Button';
 
 import CardTransaction from './components/CardTransaction';
-import { DropDownToggleTypeTransaction } from './components/DropDownToggleTypeTransaction';
 import { EmptyTransactions } from './components/EmptyTransactions';
 import { ErrorTransactions } from './components/ErrorTransactions';
-import { FilterModalToggle } from './components/FilterModalToggle';
+import { HeaderTransactions } from './components/HeaderTransactions';
 import { ModalFilter } from './components/ModalFilter';
 import { SkeletonHeaderTransaction } from './components/SkeletonHeaderTransaction';
 import { SkeletonTransaction } from './components/SkeletonTransaction';
@@ -38,7 +37,12 @@ export function Transactions() {
     isLoadingTransactions,
     refetchTransactions,
     refSwiper,
+    listSearch,
+    searchTransactionValue,
+    handleChangeSearchTransactionValue,
   } = useTransactions();
+
+  const hasEmptyListSearch = transactions.length > 0 && listSearch.length <= 0;
 
   return (
     <div className="bg-primary/10 flex flex-col gap-6 w-full rounded-[16px] px-2 py-4 lg:p-10 ">
@@ -63,18 +67,16 @@ export function Transactions() {
 
           {!isErrorTransactions && (
             <>
-              <header className="flex items-center justify-between">
-                <DropDownToggleTypeTransaction
-                  filters={filters}
-                  handleChangeFilter={handleChangeFilter}
-                />
-
-                <FilterModalToggle
-                  filters={filters}
-                  handleToggleFilterModal={handleToggleFilterModal}
-                />
-              </header>
-
+              <HeaderTransactions
+                filters={filters}
+                handleChangeFilter={handleChangeFilter}
+                handleToggleFilterModal={handleToggleFilterModal}
+                searchTransactionValue={searchTransactionValue}
+                handleChangeSearchTransactionValue={
+                  handleChangeSearchTransactionValue
+                }
+                aa={transactions}
+              />
               <div className="relative mt-6">
                 <Swiper
                   slidesPerView={3}
@@ -112,7 +114,7 @@ export function Transactions() {
                     className="h-full max-h-[350px]  overflow-y-auto space-y-[8px]"
                     ref={containerTransactionsRef}
                   >
-                    {transactions.map((transaction) => (
+                    {listSearch.map((transaction) => (
                       <CardTransaction
                         key={transaction.id}
                         transaction={transaction}
@@ -126,6 +128,10 @@ export function Transactions() {
                           <SkeletonTransaction />
                           <SkeletonTransaction />
                         </div>
+                      )}
+
+                      {hasEmptyListSearch && (
+                        <p>Nenhum transação encontrada...</p>
                       )}
 
                       {!isLoadingNextPage && isFetchNextPageError && (

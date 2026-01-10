@@ -58,13 +58,16 @@ export function useEditedTransactionModal() {
       .max(100, 'Máximo de 100 caracteres'),
     value: z
       .preprocess(
-        (val) => String(val),
+        (val) =>
+          String(val)
+            .replace(/\./g, '') // remove separador de milhar
+            .replace(',', '.'), // vírgula → ponto
         z
           .string()
-          .regex(/^\d+$/, 'Apenas números positivos')
+          .regex(/^\d+(\.\d+)?$/, 'Apenas números positivos')
           .max(20, 'Máximo de 20 caracteres'),
       )
-      .transform((val) => Number(val)),
+      .transform(Number),
     date: z.date(),
     typeTransaction: z.enum(['INCOME', 'EXPENSE']),
   });

@@ -1,6 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import React, {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
+import { formatDate } from '@app/utils/formatDate';
 import { useFinancesContext } from '@ui/pages/Home/context/FinancesContext';
+
+import { Transaction } from '../types/Transaction';
 
 import { useGetTransactions } from './useGetTransactions';
 
@@ -27,6 +36,42 @@ export function useTransactions() {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const containerTransactionsRef = useRef<HTMLDivElement | null>(null);
   const lastTransactionsRef = useRef<HTMLDivElement | null>(null);
+
+  const [searchTransactionValue, setSearchTransactionValue] =
+    useState<string>('');
+
+  function handleChangeSearchTransactionValue(
+    event: React.ChangeEvent<HTMLInputElement> | string,
+  ) {
+    if (typeof event !== 'string') {
+      setSearchTransactionValue(event.target.value);
+    } else {
+      setSearchTransactionValue(event);
+    }
+  }
+
+  const deferedValue = useDeferredValue(searchTransactionValue);
+  const listSearch = useMemo<Transaction[]>(
+    () =>
+      transactions.transactions.filter((transaction) => {
+        const search = deferedValue.toLowerCase();
+
+        const name = transaction.name.toLowerCase().includes(search);
+        const value = transaction.value.toString().includes(search);
+        const date = formatDate(transaction.date).includes(search);
+        const typeTransactionSearch =
+          transaction.typeTransaction === 'INCOME' ? 'Receita' : 'Despesa';
+        const typeTransactionIconSearch =
+          transaction.typeTransaction === 'INCOME' ? '+' : '-';
+        const typeTransaction = typeTransactionSearch
+          .toLowerCase()
+          .includes(search);
+        const typeTransactionIcon = typeTransactionIconSearch.includes(search);
+
+        return name || value || typeTransaction || date || typeTransactionIcon;
+      }),
+    [transactions, deferedValue],
+  );
 
   function handleChangeSliderState(
     field: keyof typeof sliderState,
@@ -92,5 +137,8 @@ export function useTransactions() {
     isLoadingTransactions,
     refetchTransactions,
     refSwiper,
+    listSearch,
+    searchTransactionValue,
+    handleChangeSearchTransactionValue,
   };
 }
