@@ -1,4 +1,4 @@
-import { iconsMap, iconTypeBankAccount } from './IconsMap';
+import { iconsMap, iconTypeBankAccount } from './iconsMap';
 
 type BankAccountTypeIconsProps = {
   type: iconTypeBankAccount;
