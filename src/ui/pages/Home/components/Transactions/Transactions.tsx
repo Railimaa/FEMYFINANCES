@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Button } from '@ui/components/Button';
 
 import CardTransaction from './components/CardTransaction';
+import { EmptyListTransactionsSearch } from './components/EmptyListTransactionsSearch';
 import { EmptyTransactions } from './components/EmptyTransactions';
 import { ErrorTransactions } from './components/ErrorTransactions';
 import { HeaderTransactions } from './components/HeaderTransactions';
@@ -131,7 +132,11 @@ export function Transactions() {
                       )}
 
                       {hasEmptyListSearch && (
-                        <p>Nenhum transação encontrada...</p>
+                        <EmptyListTransactionsSearch
+                          handleChangeSearchTransactionValue={
+                            handleChangeSearchTransactionValue
+                          }
+                        />
                       )}
 
                       {!isLoadingNextPage && isFetchNextPageError && (

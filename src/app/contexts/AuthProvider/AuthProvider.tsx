@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 
+import { queryClient } from '@app/libs/queryClient';
 import { AuthService } from '@app/services/Auth/AuthService';
 import { ResetPasswordInput } from '@app/services/Auth/types/ResetPasswordInput';
 import { SignInInput } from '@app/services/Auth/types/SignInInput';
@@ -83,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(() => {
     localStorage.clear();
     setSignedIn(false);
+    queryClient.clear();
   }, []);
 
   const forgotPassword = useCallback(
