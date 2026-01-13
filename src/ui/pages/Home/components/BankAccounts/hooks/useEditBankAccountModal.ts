@@ -41,6 +41,7 @@ export function useEditBankAccountModal() {
         color: z.string().min(1).nullable(),
         icon: z.string().min(1).nullable(),
         colorWithoutIcon: z.string().min(1).nullable(),
+        category: z.string().nullable(),
       })
       .refine(
         (data) => {
@@ -70,6 +71,7 @@ export function useEditBankAccountModal() {
         colorWithoutIcon:
           bankAccountIsBegging?.categoryBankAccount.colorWithoutIcon,
         icon: bankAccountIsBegging?.categoryBankAccount.icon,
+        category: bankAccountIsBegging?.categoryBankAccount.category,
       },
       typeBankAccount: bankAccountIsBegging?.typeBankAccount,
       name: bankAccountIsBegging?.name,

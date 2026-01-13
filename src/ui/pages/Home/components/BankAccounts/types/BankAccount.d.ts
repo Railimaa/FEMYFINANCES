@@ -11,6 +11,7 @@ export type BankAccount = {
     icon: string | null;
     colorWithoutIcon: string | null;
     type: string;
+    category: string;
   };
 };
 
