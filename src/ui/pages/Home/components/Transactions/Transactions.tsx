@@ -76,7 +76,6 @@ export function Transactions() {
                 handleChangeSearchTransactionValue={
                   handleChangeSearchTransactionValue
                 }
-                aa={transactions}
               />
               <div className="relative mt-6">
                 <Swiper

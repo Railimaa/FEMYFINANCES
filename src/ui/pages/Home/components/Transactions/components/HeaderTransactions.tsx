@@ -7,7 +7,6 @@ import { Input } from '@ui/components/Input';
 
 import { useInputSearch } from '../hooks/useInputSearch';
 import { FilterTransaction } from '../types/FilterTransaction';
-import { Transaction } from '../types/Transaction';
 
 import { DropDownToggleTypeTransaction } from './DropDownToggleTypeTransaction';
 import { FilterModalToggle } from './FilterModalToggle';
@@ -17,11 +16,9 @@ type HeaderTransactionsProps = {
   handleChangeFilter: (field: keyof FilterTransaction, value: any) => void;
   handleToggleFilterModal: () => void;
   searchTransactionValue: string;
-  // eslint-disable-next-line react/no-unused-prop-types
   handleChangeSearchTransactionValue: (
     event: React.ChangeEvent<HTMLInputElement> | string,
   ) => void;
-  aa: Transaction[];
 };
 
 export function HeaderTransactions({
@@ -30,25 +27,9 @@ export function HeaderTransactions({
   handleToggleFilterModal,
   searchTransactionValue,
   handleChangeSearchTransactionValue,
-  aa,
 }: HeaderTransactionsProps) {
   const { visibleInputSearch, handleToggleVisibleInputSearch, inputSearchRef } =
     useInputSearch({ handleChangeSearchTransactionValue });
-  // useEffect(() => {
-  //   function handleKeyDown(event: KeyboardEvent) {
-  //     if (event.key !== 'Escape') return;
-
-  //     if (document.activeElement === inputSearchRef.current) {
-  //       inputSearchRef.current?.blur();
-  //       handleChangeSearchTransactionValue('');
-  //       setVisibleSearchInput(false);
-  //     }
-  //   }
-
-  //   document.addEventListener('keydown', handleKeyDown);
-
-  //   return () => document.removeEventListener('keydown', handleKeyDown);
-  // }, [visibleSearchInput, handleChangeSearchTransactionValue]);
 
   return (
     <header className="flex items-center justify-between">
@@ -103,7 +84,6 @@ export function HeaderTransactions({
         filters={filters}
         handleToggleFilterModal={handleToggleFilterModal}
       />
-      {aa.length}
     </header>
   );
 }
