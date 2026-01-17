@@ -1,10 +1,10 @@
 import { Trash } from 'lucide-react';
 import { Controller } from 'react-hook-form';
 
+import { formatCurrency } from '@app/utils/formatCurrency';
 import { AlertModal } from '@ui/components/AlertModal';
 import { Button } from '@ui/components/Button';
 import { Input } from '@ui/components/Input';
-import { InputCurrency } from '@ui/components/InputCurrency';
 import { Label } from '@ui/components/Label';
 import { Modal } from '@ui/components/Modal/Modal';
 import { IconBank } from '@ui/icons/BankAccountsIcon/IconsBank/IconBank';
@@ -56,24 +56,13 @@ export function EditBankAccountModal() {
         </div>
       }
     >
-      <Label htmlFor="initialBalance">Saldo Inicial</Label>
-      <div className="flex gap-2 items-center">
-        <p className="text-lg/normal opacity-55 tracking-tighter font-normal">
-          R$
-        </p>
+      <p className="text-lg/normal tracking-tighter font-normal">
+        Saldo da conta
+      </p>
 
-        <Controller
-          control={form.control}
-          name="initialBalance"
-          render={({ field: { value, onChange } }) => (
-            <InputCurrency
-              value={value}
-              onChange={onChange}
-              isLoading={isLoadingUpdateBankAccount}
-            />
-          )}
-        />
-      </div>
+      <span className="text-lg text-muted-foreground">
+        {formatCurrency(form.getValues('initialBalance'))}
+      </span>
 
       <div className="flex flex-col space-y-[24px] w-full mt-12">
         <div className="flex flex-col gap-2">
