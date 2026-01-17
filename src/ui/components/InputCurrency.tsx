@@ -4,14 +4,12 @@ type InputCurrencyProps = {
   value: number;
   onChange: (value: number) => void;
   isLoading?: boolean;
-  disabled?: boolean;
 };
 
 export function InputCurrency({
   value,
   onChange,
   isLoading,
-  disabled,
 }: InputCurrencyProps) {
   return (
     <NumericFormat
@@ -26,7 +24,7 @@ export function InputCurrency({
       }}
       className=" outline-none border-none font-bold text-[32px] -tracking-[-1px]  bg-background text-primary w-full"
       id="initialBalance"
-      disabled={isLoading ?? disabled}
+      disabled={isLoading}
     />
   );
 }
