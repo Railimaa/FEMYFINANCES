@@ -3,6 +3,8 @@ import 'swiper/css';
 import { CircleAlert } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useWindowHeight } from '@app/hooks/useWindowHeight';
+import { cn } from '@app/utils/cn';
 import { Button } from '@ui/components/Button';
 
 import CardTransaction from './components/CardTransaction';
@@ -42,6 +44,8 @@ export function Transactions() {
     searchTransactionValue,
     handleChangeSearchTransactionValue,
   } = useTransactions();
+
+  const height = useWindowHeight();
 
   const hasEmptyListSearch = transactions.length > 0 && listSearch.length <= 0;
 
@@ -111,7 +115,10 @@ export function Transactions() {
               <>
                 {hasTransactions && (
                   <div
-                    className="h-full max-h-[350px]  overflow-y-auto space-y-[8px]"
+                    className={cn(
+                      'h-full max-h-[350px] overflow-y-auto space-y-[8px]',
+                      height > 745 && 'max-h-[600px]',
+                    )}
                     ref={containerTransactionsRef}
                   >
                     {listSearch.map((transaction) => (
