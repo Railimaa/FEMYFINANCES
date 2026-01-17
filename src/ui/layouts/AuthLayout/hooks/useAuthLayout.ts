@@ -19,7 +19,7 @@ export function useAuthLayout() {
       img: Img1,
       title: 'Bem-vindo(a) ao MyFinances',
       subTitle:
-        'Cadastre cartões, controle transações e acompanhe seus gastos de forma simples e visual. Tudo o que você precisapara organizar sua vida financeira está aqui.',
+        'Cadastre cartões, controle transações e acompanhe seus gastos de forma simples e visual. Tudo o que você precisa para organizar sua vida financeira está aqui.',
     },
     {
       img: Img2,
