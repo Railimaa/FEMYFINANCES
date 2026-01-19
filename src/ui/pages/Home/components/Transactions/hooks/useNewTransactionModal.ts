@@ -6,6 +6,8 @@ import { z } from 'zod';
 import { queryClient } from '@app/libs/queryClient';
 import { useFinancesContext } from '@ui/pages/Home/context/FinancesContext';
 
+import { useGetBankAccounts } from '../../BankAccounts/hooks/useGetBankAccounts';
+
 import { useFilters } from './useFilters';
 import { usePostNewTransaction } from './usePostNewTransaction';
 
@@ -16,6 +18,10 @@ export function useNewTransactionModal() {
     typeTransaction,
     refSwiper,
   } = useFinancesContext();
+
+  const { bankAccounts } = useGetBankAccounts();
+
+  const hasBankAccounts = bankAccounts.length > 0;
 
   const { onPostNewTransaction, isLoadingNewTransaction } =
     usePostNewTransaction();
@@ -132,5 +138,6 @@ export function useNewTransactionModal() {
     handleCloseModalNewTransactionAndResetForm,
     istypeTransactionIncome,
     isLoadingNewTransaction,
+    hasBankAccounts,
   };
 }

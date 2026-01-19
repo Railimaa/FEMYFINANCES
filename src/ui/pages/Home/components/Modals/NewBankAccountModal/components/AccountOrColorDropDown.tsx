@@ -90,7 +90,7 @@ export function AccountOrColorDropDown({
                     {!selecteValue.id && !selecteValue.colorWithoutIcon && (
                       <div className="flex justify-between w-full items-center">
                         <span className="flex w-full">
-                          Selecione Conta ou Cor
+                          Selecione Ícone ou Cor
                         </span>
 
                         <ChevronDownIcon className="h-4 w-4 opacity-50 " />
@@ -137,7 +137,7 @@ export function AccountOrColorDropDown({
           tabs={[
             {
               id: Math.random().toString(),
-              name: 'Contas',
+              name: 'Ícones',
               icon: <Landmark size={14} />,
               content: (
                 <AccountTab

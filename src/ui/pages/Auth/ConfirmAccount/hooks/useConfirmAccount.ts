@@ -34,7 +34,7 @@ export function useConfirmAccount() {
     return {};
   });
   const [timeLeft, setTimeLeft] = useState(RESEND_TIMEOUT);
-  const [canResend, setCanResend] = useState(true);
+  const [canResend, setCanResend] = useState(false);
 
   const schema = z.object({
     code: z.string().min(6, 'Código é obrigatório'),
@@ -58,7 +58,7 @@ Sua conta está ativa. Faça login e comece a usar o My Finances.`,
       );
 
       localStorage.removeItem(localStorageKeys.confirmationEmailAccount);
-      navigate(routes.signIn);
+      setTimeout(() => navigate(routes.signIn), 800);
     } catch (err) {
       const message =
         err instanceof AxiosError

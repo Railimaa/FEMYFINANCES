@@ -76,7 +76,7 @@ export function NewBankAccountModal() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="categoryBankAccount">Conta ou Cor</Label>
+          <Label htmlFor="categoryBankAccount">Ícone ou Cor</Label>
           <Controller
             control={form.control}
             name="categoryBankAccount"
