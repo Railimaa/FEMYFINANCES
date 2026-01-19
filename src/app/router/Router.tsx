@@ -23,6 +23,9 @@ const { Home } = lazyLoad(() => import('../../ui/pages/Home/Home'));
 const { MyProfile } = lazyLoad(
   () => import('../../ui/pages/MyProfile/MyProfile'),
 );
+const { ConfirmAccount } = lazyLoad(
+  () => import('../../ui/pages/Auth/ConfirmAccount/ConfirmAccount'),
+);
 
 export function Router() {
   return (
@@ -40,6 +43,10 @@ export function Router() {
           </Route>
           <Route path={routes.forgotPassword} element={<ForgotPassword />} />
           <Route path={routes.resetPassword} element={<ResetPassword />} />
+          <Route
+            path={routes.confirmationAccount}
+            element={<ConfirmAccount />}
+          />
         </Route>
 
         <Route path="*" element={<NotFound404 />} />
