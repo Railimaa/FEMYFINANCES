@@ -62,7 +62,7 @@ export function SignUp() {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <Label htmlFor="Confirmpassword" className="text-xs font-light">
+          <Label htmlFor="Confirmpassword" className="text-xs">
             Confirmar Senha
           </Label>
           <Input
