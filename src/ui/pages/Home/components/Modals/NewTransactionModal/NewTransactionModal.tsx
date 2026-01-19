@@ -21,6 +21,7 @@ export function NewTransactionModal() {
     istypeTransactionIncome,
     handleCloseModalNewTransactionAndResetForm,
     isLoadingNewTransaction,
+    hasBankAccounts,
   } = useNewTransactionModal();
 
   return (
@@ -90,21 +91,34 @@ export function NewTransactionModal() {
         </div>
 
         <div className="flex flex-col gap-2 w-full">
-          <Label htmlFor="account">
-            {istypeTransactionIncome ? 'Receber na conta' : 'Pagar com'}
-          </Label>
-          <Controller
-            name="categoryBankAccount"
-            control={form.control}
-            render={({ field: { value, onChange } }) => (
-              <DropDownAccount
-                value={value}
-                onChange={onChange}
-                error={form.formState.errors.categoryBankAccount?.message}
-                isLoading={isLoadingNewTransaction}
+          {!hasBankAccounts && (
+            <div className="rounded-md border border-yellow-300 bg-yellow-50 p-3 text-sm text-yellow-800">
+              <strong>Você ainda não tem uma conta cadastrada.</strong>
+              <br />
+              Cadastre uma conta para registrar suas receitas e despesas.
+            </div>
+          )}
+
+          {hasBankAccounts && (
+            <>
+              <Label htmlFor="account">
+                {istypeTransactionIncome ? 'Receber na conta' : 'Pagar com'}
+              </Label>
+
+              <Controller
+                name="categoryBankAccount"
+                control={form.control}
+                render={({ field: { value, onChange } }) => (
+                  <DropDownAccount
+                    value={value}
+                    onChange={onChange}
+                    error={form.formState.errors.categoryBankAccount?.message}
+                    isLoading={isLoadingNewTransaction}
+                  />
+                )}
               />
-            )}
-          />
+            </>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 w-full">
