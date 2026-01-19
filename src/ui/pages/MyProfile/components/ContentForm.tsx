@@ -18,7 +18,6 @@ type ContentFormProps = {
     }
   >;
   isLoadingUpdateUser: boolean;
-  isLoadingUpload: boolean;
   handleSubmit: () => Promise<void>;
   user: User;
   isDurtyy: boolean;
@@ -27,7 +26,6 @@ type ContentFormProps = {
 export function ContentForm({
   form,
   isLoadingUpdateUser,
-  isLoadingUpload,
   handleSubmit,
   user,
   isDurtyy,
@@ -40,7 +38,7 @@ export function ContentForm({
           id="firstName"
           {...form.register('firstName')}
           error={form.formState.errors.firstName?.message}
-          isLoading={isLoadingUpdateUser || isLoadingUpload}
+          isLoading={isLoadingUpdateUser}
         />
       </div>
 
@@ -50,7 +48,7 @@ export function ContentForm({
           id="lastName"
           {...form.register('lastName')}
           error={form.formState.errors.lastName?.message}
-          isLoading={isLoadingUpdateUser || isLoadingUpload}
+          isLoading={isLoadingUpdateUser}
         />
       </div>
       <div className="w-full ">
@@ -70,7 +68,7 @@ export function ContentForm({
         className="w-full"
         onClick={handleSubmit}
         isLoading={isLoadingUpdateUser}
-        disabled={!isDurtyy || isLoadingUpload}
+        disabled={!isDurtyy}
       >
         Salvar
       </Button>

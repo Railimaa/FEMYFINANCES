@@ -5,7 +5,6 @@ import { LoadingScreen } from '@ui/components/LoadingScreen';
 import { AvatarHeader } from './components/AvatarHeader';
 import { ContentForm } from './components/ContentForm';
 import { LoadingDataUser } from './components/LoadingDataUser';
-import { useAvatarHeader } from './hooks/useAvatarHeader';
 import { useMyProfile } from './hooks/useMyProfile';
 
 export function MyProfile() {
@@ -19,24 +18,13 @@ export function MyProfile() {
     openModalDeleteAccount,
     handleToggleModalDeleteAccount,
     handleDeleteUser,
-    openModalDeleteImgProfile,
-    handleToggleModalDeleteImgProfile,
-    handleDeleteImgProfile,
     isLoadingMutationUser,
     isLoadingDeleteUser,
-    isLoadingDeleteImgProfile,
   } = useMyProfile();
-  const {
-    isLoadingUpload,
-    handleChangeUpload,
-    refInputUpload,
-    handleUpload,
-    handleUpdateUploadImgProfile,
-  } = useAvatarHeader();
 
   return (
     <>
-      {(isLoadingUpdateUser || isLoadingUpload) && <LoadingScreen isLoading />}
+      {isLoadingUpdateUser && <LoadingScreen isLoading />}
 
       <Header />
 
@@ -49,19 +37,11 @@ export function MyProfile() {
               {!isFetching && (
                 <>
                   <AvatarHeader
-                    isLoadingMutationUser={isLoadingMutationUser}
                     handleToggleModalDeleteAccount={
                       handleToggleModalDeleteAccount
                     }
-                    handleToggleModalDeleteImgProfile={
-                      handleToggleModalDeleteImgProfile
-                    }
-                    isLoadingUploadImgProfile={isLoadingUpload}
-                    handleChangeUpload={handleChangeUpload}
-                    refInputUpload={refInputUpload}
-                    handleUpload={handleUpload}
+                    isLoadingMutationUser={isLoadingMutationUser}
                     user={user}
-                    handleUpdateUploadImgProfile={handleUpdateUploadImgProfile}
                   />
 
                   <ContentForm
@@ -69,7 +49,6 @@ export function MyProfile() {
                     handleSubmit={handleSubmit}
                     isDurtyy={isDurtyy}
                     isLoadingUpdateUser={isLoadingUpdateUser}
-                    isLoadingUpload={isLoadingUpload}
                     user={user}
                   />
                 </>
@@ -92,21 +71,6 @@ export function MyProfile() {
           handleClose={handleToggleModalDeleteAccount}
           handleConfirmation={handleDeleteUser}
           loading={isLoadingDeleteUser}
-        />
-      )}
-
-      {openModalDeleteImgProfile && (
-        <AlertModal
-          open={openModalDeleteImgProfile}
-          title="Deseja realmente excluir sua foto?"
-          message={
-            <>
-              Sua <strong>foto</strong> será permanentemente removida.
-            </>
-          }
-          handleClose={handleToggleModalDeleteImgProfile}
-          handleConfirmation={handleDeleteImgProfile}
-          loading={isLoadingDeleteImgProfile}
         />
       )}
     </>
