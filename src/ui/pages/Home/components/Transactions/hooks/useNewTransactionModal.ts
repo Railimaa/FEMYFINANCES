@@ -21,6 +21,8 @@ export function useNewTransactionModal() {
 
   const { bankAccounts } = useGetBankAccounts();
 
+  console.log(bankAccounts, 'AAAA');
+
   const hasBankAccounts = bankAccounts.length > 0;
 
   const { onPostNewTransaction, isLoadingNewTransaction } =
