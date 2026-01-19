@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { useAuthContext } from '@app/contexts/AuthProvider/AuthProvider';
-import { useDeleteImgProfile } from '@app/contexts/AuthProvider/hooks/useDeleteImgProfile';
 import { useDeleteUser } from '@app/contexts/AuthProvider/hooks/useDeleteUser';
 import { useGetUser } from '@app/contexts/AuthProvider/hooks/useGetUser';
 import { useUpdateUser } from '@app/contexts/AuthProvider/hooks/useUpdateUser';
@@ -15,18 +14,14 @@ export function useMyProfile() {
   const { user, signedIn, signOut } = useAuthContext();
   const { onUpdateUser, isLoadingUpdateUser } = useUpdateUser();
   const { onDeleteUser, isLoadingDeleteUser } = useDeleteUser();
-  const { onDeleteImgProfile, isLoadingDeleteImgProfile } =
-    useDeleteImgProfile();
+
   const { isFetching } = useGetUser(signedIn);
   const [openModalDeleteAccount, handleToggleModalDeleteAccount] = useReducer(
     (prevState) => !prevState,
     false,
   );
-  const [openModalDeleteImgProfile, handleToggleModalDeleteImgProfile] =
-    useReducer((prevState) => !prevState, false);
 
-  const isLoadingMutationUser =
-    isLoadingUpdateUser || isLoadingDeleteUser || isLoadingDeleteImgProfile;
+  const isLoadingMutationUser = isLoadingUpdateUser || isLoadingDeleteUser;
 
   const schema = z.object({
     firstName: z.string().min(1, 'Nome é obrigatório'),
@@ -74,21 +69,6 @@ export function useMyProfile() {
     }
   }
 
-  async function handleDeleteImgProfile() {
-    try {
-      const { imgProfile } = user.profile;
-      const fileKey = imgProfile.split('/')[3];
-
-      await onDeleteImgProfile(fileKey);
-      queryClient.invalidateQueries({ queryKey: ['users', 'me'] });
-      toast.success('Foto deletada com sucesso!', { position: 'top-right' });
-    } catch {
-      toast.error('Erro ao deletar foto!', { position: 'top-right' });
-    } finally {
-      handleToggleModalDeleteImgProfile();
-    }
-  }
-
   useEffect(() => {
     form.resetField('firstName', { defaultValue: user.firstName });
     form.resetField('lastName', { defaultValue: user.lastName });
@@ -105,10 +85,6 @@ export function useMyProfile() {
     handleToggleModalDeleteAccount,
     isLoadingDeleteUser,
     handleDeleteUser,
-    openModalDeleteImgProfile,
-    handleToggleModalDeleteImgProfile,
-    handleDeleteImgProfile,
     isLoadingMutationUser,
-    isLoadingDeleteImgProfile,
   };
 }
