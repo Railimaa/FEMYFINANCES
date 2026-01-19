@@ -1,17 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AxiosError } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { useAuthContext } from '@app/contexts/AuthProvider/AuthProvider';
+import { routes } from '@app/router/routes';
+import { localStorageKeys } from '@app/utils/localStorageKeys';
 
 export function useSignIn() {
   const {
     signIn,
     loadings: { isLoadingSignIn },
   } = useAuthContext();
-  const navigate = useNavigate();
 
   const schema = z.object({
     email: z
@@ -40,10 +43,38 @@ export function useSignIn() {
   const handleSubmit = form.handleSubmit(async ({ email, password }) => {
     try {
       await signIn({ email, password });
-    } catch {
-      toast.error('Credenciais invalídas!', { position: 'top-center' });
+    } catch (err) {
+      const message =
+        err instanceof AxiosError ? err.response?.data.message : '';
+
+      toast.error(message, {
+        position: 'top-center',
+        duration: 6000,
+      });
     }
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedData = localStorage.getItem(
+      localStorageKeys.confirmationEmailAccount,
+    );
+
+    if (!storedData) return;
+
+    try {
+      const parsed = JSON.parse(storedData);
+
+      if (parsed?.email) {
+        navigate(routes.confirmationAccount, { replace: true });
+      } else {
+        localStorage.removeItem(localStorageKeys.confirmationEmailAccount);
+      }
+    } catch {
+      localStorage.removeItem(localStorageKeys.confirmationEmailAccount);
+    }
+  }, []);
 
   return {
     handleSubmit,

@@ -69,6 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { accessToken, refreshToken } = await onSignIn({ email, password });
       localStorage.setItem(localStorageKeys.accessToken, accessToken);
       localStorage.setItem(localStorageKeys.refreshToken, refreshToken);
+      localStorage.removeItem(localStorageKeys.confirmationEmailAccount);
       setSignedIn(true);
     },
     [onSignIn],

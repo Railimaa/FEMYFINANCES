@@ -65,10 +65,39 @@ async function resetPassword({
   return data;
 }
 
+async function postConfirmAccount({
+  code,
+  email,
+}: {
+  code: string;
+  email: string;
+}): Promise<void> {
+  const { data } = await httpClient.post('/auth/confirm-account', {
+    code,
+    email,
+  });
+
+  return data;
+}
+
+async function postResentConfirmAccount({
+  email,
+}: {
+  email: string;
+}): Promise<void> {
+  const { data } = await httpClient.post('/auth/resent-confirm-account', {
+    email,
+  });
+
+  return data;
+}
+
 export const AuthService = {
   postSignIn,
   postSignUp,
   postForgotPassword,
   postRefreshToken,
   resetPassword,
+  postConfirmAccount,
+  postResentConfirmAccount,
 };
