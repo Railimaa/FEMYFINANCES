@@ -1,5 +1,4 @@
 import { AlertModal } from '@ui/components/AlertModal';
-import { Header } from '@ui/components/Header';
 import { LoadingScreen } from '@ui/components/LoadingScreen';
 
 import { AvatarHeader } from './components/AvatarHeader';
@@ -25,8 +24,6 @@ export function MyProfile() {
   return (
     <>
       {isLoadingUpdateUser && <LoadingScreen isLoading />}
-
-      <Header />
 
       <div className="py-12 px-4 lg:px-20 lg:py-6">
         <div className="w-full min-h-screen flex">

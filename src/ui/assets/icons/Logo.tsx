@@ -8,8 +8,9 @@ import { routes } from '@app/router/routes';
 interface ILogoProps {
   width?: number;
   height?: number;
+  isNavigate?: boolean;
 }
-export function Logo({ width, height }: ILogoProps) {
+export function Logo({ width, height, isNavigate = true }: ILogoProps) {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
@@ -18,9 +19,9 @@ export function Logo({ width, height }: ILogoProps) {
       data-logo="logo"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 224 43"
-      width={width ?? 180}
+      width={width ?? 120}
       height={height}
-      onClick={() => navigate(routes.home)}
+      onClick={isNavigate ? () => navigate(routes.home) : () => {}}
       className="hover:cursor-pointer"
     >
       <g id="logogram" transform="translate(0, 1.5) rotate(0)">

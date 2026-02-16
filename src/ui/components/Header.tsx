@@ -1,13 +1,19 @@
-import { ChevronDown, LogOutIcon, MoonStar, SunIcon, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import {
+  ChevronDown,
+  LogOutIcon,
+  MenuIcon,
+  MoonStar,
+  SunIcon,
+} from 'lucide-react';
 
 import { useAuthContext } from '@app/contexts/AuthProvider/AuthProvider';
 import { Theme, useTheme } from '@app/contexts/ThemeProvider';
-import { routes } from '@app/router/routes';
 import type { User as UserType } from '@app/services/UserService/types/User';
 import { Logo } from '@ui/assets/icons/Logo';
+import { useIsMobile } from '@ui/pages/Home/components/Transactions/hooks/useIsMobile';
 
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar';
+import { Button } from './Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,8 +33,6 @@ function HeaderProfile({
   toogleTheme: () => void;
   signOut: () => void;
 }) {
-  const navigate = useNavigate();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -67,11 +71,6 @@ function HeaderProfile({
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onSelect={() => navigate(routes.myProfile)}>
-          <User />
-          Meu Perfil
-        </DropdownMenuItem>
-
         <DropdownMenuItem onSelect={toogleTheme}>
           {theme === 'dark' ? <SunIcon /> : <MoonStar />}
           Mudar Tema
@@ -88,13 +87,30 @@ function HeaderProfile({
   );
 }
 
-export function Header() {
+export function Header({
+  handleToggleSideBar,
+}: {
+  handleToggleSideBar: () => void;
+}) {
   const { user, signOut } = useAuthContext();
   const { theme, toogleTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   return (
-    <div className="flex w-full h-full max-h-14 fixed top-0 left-0 px-4 z-[1000] bg-background shadow-sm py-2">
-      <Logo />
+    <div className="flex items-center w-full h-full max-h-14 fixed top-0 left-0 px-4   z-[1000] bg-background shadow-sm py-2">
+      {isMobile ? (
+        <Button variant="ghost" onClick={handleToggleSideBar} type="button">
+          <MenuIcon />
+        </Button>
+      ) : (
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" onClick={handleToggleSideBar} type="button">
+            <MenuIcon />
+          </Button>
+
+          <Logo />
+        </div>
+      )}
 
       <div className="flex justify-end  w-full">
         <HeaderProfile
