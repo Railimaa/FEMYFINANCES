@@ -51,19 +51,19 @@ export function SideBar({ children }: { children: ReactNode }) {
 
   const links = [
     {
-      id: Math.random(),
+      id: 1,
       to: routes.home,
       icon: <House size={20} />,
       description: 'Inicio',
     },
     {
-      id: Math.random(),
+      id: 2,
       to: routes.dashboard,
       icon: <ChartColumn size={20} />,
       description: 'Dashboards',
     },
     {
-      id: Math.random(),
+      id: 3,
       to: routes.myProfile,
       icon: <User size={20} />,
       description: 'Meu Perfil',

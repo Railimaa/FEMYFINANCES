@@ -1,3 +1,4 @@
+import '@app/libs/dynamicImportListener';
 import ReactDOM from 'react-dom/client';
 
 import '@ui/styles/index.css';
