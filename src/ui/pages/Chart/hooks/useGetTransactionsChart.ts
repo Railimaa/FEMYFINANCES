@@ -12,7 +12,9 @@ export function useGetTransactionsChart(
     queryFn: () =>
       TransactionService.getTransactionsChart(month, year, allPeriod),
     enabled: true,
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 5, // 5 minutos
+    refetchOnWindowFocus: true, // Atualiza ao retornar para aba
+    refetchInterval: 1000 * 60, // Atualiza a cada minuto
   });
 
   return {

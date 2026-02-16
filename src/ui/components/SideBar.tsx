@@ -75,11 +75,18 @@ export function SideBar({ children }: { children: ReactNode }) {
       <div ref={elementRef}>
         <Header handleToggleSideBar={handleToggleOpen} />
         {open && (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
             className="top-0 bottom-0 left-0 right-0 fixed z-[2000] bg-foreground/50"
             onClick={handleToggleOpen}
-            slot="button"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleToggleOpen();
+              }
+            }}
+            aria-label="Fechar menu de navegação"
           >
             <motion.div
               className="w-full max-w-[260px] h-full z-[2001] bg-background rounded-sm fixed flex flex-col space-y-10 "
