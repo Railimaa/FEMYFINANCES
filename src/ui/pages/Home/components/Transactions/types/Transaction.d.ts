@@ -20,6 +20,30 @@ type Transaction = {
   };
 };
 
+type TransactionChart = {
+  id: string;
+  bankAccountId: string;
+  categoryId: string;
+  categoryName: string;
+  typeCategoryTransaction: 'INCOME' | 'EXPENSE';
+  icon: string;
+  userId: string;
+  name: string;
+  value: number;
+  typeTransaction: 'INCOME' | 'EXPENSE';
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  categoryBankAccount: {
+    id: string | null;
+    color: string | null;
+    icon: string | null;
+    colorWithoutIcon: string | null;
+    userId: string;
+    type: string;
+  };
+};
+
 export type TransactionResponse = {
   transactions: Transaction[];
   lastEvaluatedKey?: {
@@ -30,4 +54,8 @@ export type TransactionResponse = {
     PK: string;
     SK: string;
   };
+};
+
+export type TransactionChartResponse = {
+  transactions: TransactionChart[];
 };

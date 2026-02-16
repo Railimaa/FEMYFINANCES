@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const httpClient = axios.create({
-  baseURL: 'https://api.myfinances.app.br',
+  baseURL: 'https://api-hml.myfinances.app.br',
 });
 
 // httpClient.interceptors.response.use(async (data) => {

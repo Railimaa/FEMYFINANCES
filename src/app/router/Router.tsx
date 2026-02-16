@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { lazyLoad } from '@app/utils/lazyLoad';
 import { LoadingScreen } from '@ui/components/LoadingScreen';
+import { SideBar } from '@ui/components/SideBar';
 import { AuthLayout } from '@ui/layouts/AuthLayout/AuthLayout';
 
 import { AuthGuard } from './AuthGuard';
@@ -23,6 +24,7 @@ const { Home } = lazyLoad(() => import('../../ui/pages/Home/Home'));
 const { MyProfile } = lazyLoad(
   () => import('../../ui/pages/MyProfile/MyProfile'),
 );
+const { Chart } = lazyLoad(() => import('../../ui/pages/Chart/Chart'));
 const { ConfirmAccount } = lazyLoad(
   () => import('../../ui/pages/Auth/ConfirmAccount/ConfirmAccount'),
 );
@@ -32,8 +34,30 @@ export function Router() {
     <Suspense fallback={<LoadingScreen />}>
       <Routes>
         <Route element={<AuthGuard isPrivate />}>
-          <Route path={routes.home} element={<Home />} />
-          <Route path={routes.myProfile} element={<MyProfile />} />
+          <Route
+            path={routes.home}
+            element={
+              <SideBar>
+                <Home />
+              </SideBar>
+            }
+          />
+          <Route
+            path={routes.myProfile}
+            element={
+              <SideBar>
+                <MyProfile />
+              </SideBar>
+            }
+          />
+          <Route
+            path={routes.dashboard}
+            element={
+              <SideBar>
+                <Chart />
+              </SideBar>
+            }
+          />
         </Route>
 
         <Route element={<AuthGuard isPrivate={false} />}>

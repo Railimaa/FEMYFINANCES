@@ -1,7 +1,10 @@
 import { FilterTransaction } from '@ui/pages/Home/components/Transactions/types/FilterTransaction';
 import { InputNewTransaction } from '@ui/pages/Home/components/Transactions/types/InputNewTransaction';
 import { InputUpdateTransaction } from '@ui/pages/Home/components/Transactions/types/InputUpdateTransaction';
-import { TransactionResponse } from '@ui/pages/Home/components/Transactions/types/Transaction';
+import {
+  TransactionChartResponse,
+  TransactionResponse,
+} from '@ui/pages/Home/components/Transactions/types/Transaction';
 import { TransactionCategoryResponse } from '@ui/pages/Home/components/Transactions/types/TransactionCategory';
 
 import { httpClient } from '../httpClient';
@@ -63,10 +66,23 @@ async function getAllTransactionsCategories(): Promise<TransactionCategoryRespon
   return data;
 }
 
+async function getTransactionsChart(
+  month: number,
+  year: number,
+  allPeriod: boolean,
+): Promise<TransactionChartResponse> {
+  const { data } = await httpClient.get(
+    `/transactions/chart/get/${month}/${year}?allPeriod=${allPeriod}`,
+  );
+
+  return data;
+}
+
 export const TransactionService = {
   getAllTransactions,
   getAllTransactionsCategories,
   postTransaction,
   putTransaction,
   deleteTransaction,
+  getTransactionsChart,
 };

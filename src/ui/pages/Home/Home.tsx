@@ -1,5 +1,3 @@
-import { Header } from '@ui/components/Header';
-
 import { BankAccounts } from './components/BankAccounts/BankAccounts';
 import { Fab } from './components/Fab/Fab';
 import { EditBankAccountModal } from './components/Modals/EditBankAccountModal/EditBankAccountModal';
@@ -19,8 +17,7 @@ export function Home() {
         {({ bankAccountIsBegging, transactionIsBegging }) => (
           <>
             <div className="flex flex-col h-screen ">
-              <Header />
-              <div className="flex flex-1 gap-4 flex-col lg:flex-row py-20 px-4">
+              <div className="flex w-full gap-4 flex-col lg:flex-row pt-20 pb-10 px-4 h-full">
                 <div className="w-full h-full flex lg:w-[50%]">
                   <BankAccounts />
                 </div>
